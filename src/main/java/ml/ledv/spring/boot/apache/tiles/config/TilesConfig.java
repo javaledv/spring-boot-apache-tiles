@@ -1,4 +1,4 @@
-package ml.ledv.springMvc.config;
+package ml.ledv.spring.boot.apache.tiles.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

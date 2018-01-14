@@ -1,6 +1,6 @@
-package ml.ledv.springMvc.config;
+package ml.ledv.spring.boot.apache.tiles.config;
 
-import ml.ledv.springMvc.Main;
+import ml.ledv.spring.boot.apache.tiles.Main;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

@@ -1,4 +1,4 @@
-package ml.ledv.springMvc;
+package ml.ledv.spring.boot.apache.tiles;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
