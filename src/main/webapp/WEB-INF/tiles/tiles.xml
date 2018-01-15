@@ -11,7 +11,16 @@
 		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
 	</definition>
 
-	<definition name="about" extends="home">
-		<put-attribute name="body" value="/WEB-INF/jsp/about.jsp"/>
+	<definition name="users" extends="home">
+		<put-attribute name="body" value="/WEB-INF/jsp/users.jsp"/>
 	</definition>
+
+	<definition name="books" extends="home">
+		<put-attribute name="body" value="/WEB-INF/jsp/books.jsp"/>
+	</definition>
+
+	<definition name="books/free" extends="home">
+		<put-attribute name="body" value="/WEB-INF/jsp/books.jsp"/>
+	</definition>
+
 </tiles-definitions>
