@@ -17,6 +17,6 @@
     <%--    <a href="/books" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Primary link</a>--%>
 
     <nav class="navbar navbar-light bg-light">
-        <label>Spring Library</label>
+        <h1>Spring Library</h1>
     </nav>
 </form>

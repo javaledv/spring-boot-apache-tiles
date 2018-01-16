@@ -27,4 +27,8 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/users.jsp"/>
 	</definition>
 
+	<definition name="error-page" extends="home">
+		<put-attribute name="body" value="/WEB-INF/jsp/error-page.jsp"/>
+	</definition>
+
 </tiles-definitions>

@@ -71,7 +71,7 @@ public class WebController {
     }
 
     @PostMapping("/books/book-it")
-    public ModelAndView bookIt(@RequestParam("id")final String id) {
+    public ModelAndView bookIt(@RequestParam("id") final String id) {
 
         final ModelAndView modelAndView = new ModelAndView();
         final List<UserEntity> users = userService.getAll();
@@ -82,7 +82,7 @@ public class WebController {
     }
 
     @PostMapping("/books/book-it/reservation")
-    public ModelAndView reservation(@RequestParam("bookId")final String bookId, @RequestParam("userId")final String userId) {
+    public ModelAndView reservation(@RequestParam("bookId") final String bookId, @RequestParam("userId") final String userId) {
 
         final ModelAndView modelAndView = new ModelAndView();
         final Optional<UserEntity> userOptional = userService.getUserById(userId);
@@ -94,25 +94,36 @@ public class WebController {
     }
 
     @PostMapping("/books/cancel-reservation")
-    public ModelAndView cancelReservation(@RequestParam("bookId")final String bookId){
+    public ModelAndView cancelReservation(@RequestParam("bookId") final String bookId) {
+
+        final ModelAndView modelAndViewError = new ModelAndView("redirect:/error-page");
 
         final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
 
-        if(!bookOptional.isPresent()){
-            return null;
-        }else {
+        if (!bookOptional.isPresent()) {
+            modelAndViewError.addObject("errMsg", "Book with id: " + bookId + " is not exist!");
+            return modelAndViewError;
+        } else {
 
             final BookEntity bookEntity = bookOptional.get();
             final Optional<UserEntity> userOptional = userService.getUserByBook(bookEntity);
 
-            if (!userOptional.isPresent()){
-                return null;
-            }else {
+            if (!userOptional.isPresent()) {
+                modelAndViewError.addObject("errMsg", "Book with id: " + bookId + " is not reserved!");
+                return modelAndViewError;
+            } else {
 
                 userService.removeBook(userOptional.get(), bookEntity);
 
                 return new ModelAndView("redirect:/books");
             }
         }
+    }
+
+    @GetMapping("/error-page")
+    public ModelAndView error(@RequestParam("errMsg") String errMsg) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("errMsg", errMsg);
+        return modelAndView;
     }
 }
