@@ -73,7 +73,7 @@ public class WebController {
     @PostMapping("/books/book-it")
     public ModelAndView bookIt(@RequestParam("id") final String id) {
 
-        final ModelAndView modelAndView = new ModelAndView();
+        final ModelAndView modelAndView = new ModelAndView("chooseUser");
         final List<UserEntity> users = userService.getAll();
         modelAndView.addObject("users", users);
         modelAndView.addObject("bookId", id);
@@ -84,7 +84,6 @@ public class WebController {
     @PostMapping("/books/book-it/reservation")
     public ModelAndView reservation(@RequestParam("bookId") final String bookId, @RequestParam("userId") final String userId) {
 
-        final ModelAndView modelAndView = new ModelAndView();
         final Optional<UserEntity> userOptional = userService.getUserById(userId);
         final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
 
