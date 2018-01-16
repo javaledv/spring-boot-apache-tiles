@@ -2,7 +2,8 @@
          pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -19,6 +20,8 @@
         <button type="button" class="btn btn-secondary">Add book</button>
     </div>
 </div>
+
+<h1>Books</h1>
 
 <c:if test="${not empty books}">
 
@@ -47,7 +50,10 @@
                 <td>${listValue.key.content}</td>
                 <c:if test="${isFree}">
                     <td>
-                        <button type="button" class="btn btn-outline-info">book it</button>
+                        <form:form action="/books/book-it" method="post">
+                            <input hidden name="id" value="${listValue.key.id}">
+                            <button type="submit" class="btn btn-outline-info">book-it</button>
+                        </form:form>
                     </td>
                 </c:if>
                 <td>

@@ -6,8 +6,7 @@ import ml.ledv.spring.boot.apache.tiles.db.service.BookService;
 import ml.ledv.spring.boot.apache.tiles.db.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
@@ -70,4 +69,29 @@ public class WebController {
         modelAndView.addObject("isFree", isFree);
         return modelAndView;
     }
+
+    @PostMapping("/books/book-it")
+    public ModelAndView bookIt(@RequestParam("id") String id){
+
+        final ModelAndView modelAndView = new ModelAndView();
+        final List<UserEntity> users = userService.getAll();
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("bookId", id);
+
+        return modelAndView;
+    }
+
+     @PostMapping("/books/book-it/reservation")
+    public String reservation(@RequestParam("bookId") String bookId, @RequestParam("userId") String userId){
+
+        final ModelAndView modelAndView = new ModelAndView();
+        final Optional<UserEntity> userOptional = userService.getUserById(userId);
+        final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
+
+        userService.addBook(userOptional.get(), bookOptional.get());
+
+        return "books";
+    }
+
+
 }
