@@ -6,7 +6,7 @@
 
 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-        <form:form action="#" method="get">
+        <form:form action="/users/add/form" method="get">
             <button type="submit" class="btn btn-secondary">Add user</button>
         </form:form>
     </div>
@@ -36,6 +36,7 @@
             <tr>
                 <td>${listValue.id}</td>
                 <td>${listValue.login}</td>
+                <td></td>>
             </tr>
         </c:forEach>
         </tbody>

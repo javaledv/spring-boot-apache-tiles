@@ -36,13 +36,14 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/books/book-search-result.jsp"/>
 	</definition>
 
-
 	<!--###################################################################################-->
 
 	<definition name="getUsers" extends="home">
 		<put-attribute name="body" value="/WEB-INF/jsp/users/users.jsp"/>
 	</definition>
 
-
+	<definition name="addUser" extends="home">
+		<put-attribute name="body" value="/WEB-INF/jsp/users/add-user-form.jsp"/>
+	</definition>
 
 </tiles-definitions>
