@@ -1,6 +1,11 @@
 .search {
     position: relative;
-    left: 60%;
+    left: 63%;
+}
+
+.search-2 {
+    position: relative;
+    left: 70%;
 }
 
 html,

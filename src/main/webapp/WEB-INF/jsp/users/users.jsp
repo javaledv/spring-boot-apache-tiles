@@ -10,7 +10,7 @@
             <button type="submit" class="btn btn-secondary">Add user</button>
         </form:form>
     </div>
-    <div class="btn-group mr-2 search" role="group" aria-label="Second group">
+    <div class="btn-group mr-2 search-2" role="group" aria-label="Second group">
        <form:form action="#" method="get" cssClass="form-inline">
             <input type="text" name="userLogin" class="form-control" id="userLogin" placeholder="User login"/>
             <button type="submit" class="btn">Find</button>
@@ -36,7 +36,7 @@
             <tr>
                 <td>${listValue.id}</td>
                 <td>${listValue.login}</td>
-                <td></td>>
+                <td></td>
             </tr>
         </c:forEach>
         </tbody>
