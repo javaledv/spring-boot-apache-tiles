@@ -52,13 +52,16 @@
                     <td>
                         <form:form action="/books/book-it" method="post">
                             <input hidden name="id" value="${listValue.key.id}">
-                            <button type="submit" class="btn btn-outline-info">book-it</button>
+                            <button type="submit" class="btn btn-outline-info">book it</button>
                         </form:form>
                     </td>
                 </c:if>
                 <td>
                     <c:if test="${listValue.value}">
-                        <button type="button" class="btn btn-outline-info">de-reserve</button>
+                        <form:form action="/books/cancel-reservation" method="post">
+                            <input hidden name="bookId" value="${listValue.key.id}">
+                            <button type="submit" class="btn btn-outline-info">de-reserve</button>
+                        </form:form>
                     </c:if>
                 </td>
             </tr>

@@ -18,28 +18,28 @@ public class WebController {
     private UserService userService;
 
     @Autowired
-    public WebController(final BookService bookService,final UserService userService) {
+    public WebController(final BookService bookService, final UserService userService) {
         this.bookService = bookService;
         this.userService = userService;
     }
 
     @RequestMapping("/")
-    public String welcome(){
+    public String welcome() {
         return "home";
     }
 
     @GetMapping("/books")
-    public ModelAndView getBooks(){
+    public ModelAndView getBooks() {
 
         final List<BookEntity> books = bookService.getAll();
         final ModelAndView modelAndView = new ModelAndView();
         final boolean isFree = false;
 
-        final Map <BookEntity, Boolean> bok = new HashMap<>();
-        for (BookEntity bookEntity : books){
-            if(userService.getUserByBook(bookEntity).isPresent()){
+        final Map<BookEntity, Boolean> bok = new HashMap<>();
+        for (BookEntity bookEntity : books) {
+            if (userService.getUserByBook(bookEntity).isPresent()) {
                 bok.put(bookEntity, true);
-            }else {
+            } else {
                 bok.put(bookEntity, false);
             }
         }
@@ -50,15 +50,15 @@ public class WebController {
     }
 
     @GetMapping("/books/free")
-    public ModelAndView getFreeBooks(){
+    public ModelAndView getFreeBooks() {
 
         final List<BookEntity> books = bookService.getAll();
         final Map<BookEntity, Boolean> freeBooks = new HashMap<>();
 
-        for (BookEntity bookEntity: books){
+        for (BookEntity bookEntity : books) {
             Optional<UserEntity> userOptional = userService.getUserByBook(bookEntity);
 
-            if(!userOptional.isPresent()){
+            if (!userOptional.isPresent()) {
                 freeBooks.put(bookEntity, false);
             }
         }
@@ -71,7 +71,7 @@ public class WebController {
     }
 
     @PostMapping("/books/book-it")
-    public ModelAndView bookIt(@RequestParam("id") String id){
+    public ModelAndView bookIt(@RequestParam("id")final String id) {
 
         final ModelAndView modelAndView = new ModelAndView();
         final List<UserEntity> users = userService.getAll();
@@ -81,8 +81,8 @@ public class WebController {
         return modelAndView;
     }
 
-     @PostMapping("/books/book-it/reservation")
-    public String reservation(@RequestParam("bookId") String bookId, @RequestParam("userId") String userId){
+    @PostMapping("/books/book-it/reservation")
+    public ModelAndView reservation(@RequestParam("bookId")final String bookId, @RequestParam("userId")final String userId) {
 
         final ModelAndView modelAndView = new ModelAndView();
         final Optional<UserEntity> userOptional = userService.getUserById(userId);
@@ -90,8 +90,29 @@ public class WebController {
 
         userService.addBook(userOptional.get(), bookOptional.get());
 
-        return "books";
+        return new ModelAndView("redirect:/books");
     }
 
+    @PostMapping("/books/cancel-reservation")
+    public ModelAndView cancelReservation(@RequestParam("bookId")final String bookId){
 
+        final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
+
+        if(!bookOptional.isPresent()){
+            return null;
+        }else {
+
+            final BookEntity bookEntity = bookOptional.get();
+            final Optional<UserEntity> userOptional = userService.getUserByBook(bookEntity);
+
+            if (!userOptional.isPresent()){
+                return null;
+            }else {
+
+                userService.removeBook(userOptional.get(), bookEntity);
+
+                return new ModelAndView("redirect:/books");
+            }
+        }
+    }
 }
