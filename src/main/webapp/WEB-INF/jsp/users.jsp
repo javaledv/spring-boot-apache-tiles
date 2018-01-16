@@ -13,9 +13,10 @@
 
     <table class="table">
         <thead>
-        <tr class="tab-header-area">
+        <tr class="tab-header-area bg-info">
             <td>id</td>
             <td>login</td>
+            <td></td>
         </tr>
         </thead>
         <tbody>

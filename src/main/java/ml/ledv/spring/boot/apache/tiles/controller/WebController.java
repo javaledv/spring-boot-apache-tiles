@@ -121,9 +121,34 @@ public class WebController {
     }
 
     @GetMapping("/error-page")
-    public ModelAndView error(@RequestParam("errMsg") String errMsg) {
+    public ModelAndView error(@RequestParam("errMsg") final String errMsg) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("errMsg", errMsg);
+        return modelAndView;
+    }
+
+    @PostMapping("/books/add")
+    public ModelAndView addBook(@ModelAttribute("bookEntity") final BookEntity bookEntity) {
+
+        final String bookName = bookEntity.getName();
+        if(bookName.length() < 1) {
+            final ModelAndView modelAndView = new ModelAndView("redirect:/books/add/form");
+            modelAndView.addObject("error", "Empty field name!");
+            return modelAndView;
+        }
+
+        bookService.createBook(bookEntity.getName());
+
+        return new ModelAndView("redirect:/books");
+    }
+
+    @GetMapping("/books/add/form")
+    public ModelAndView addBookForm(@RequestParam(value = "error", required = false) String error) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("bookEntity", new BookEntity());
+        modelAndView.addObject("error", error);
+
         return modelAndView;
     }
 }

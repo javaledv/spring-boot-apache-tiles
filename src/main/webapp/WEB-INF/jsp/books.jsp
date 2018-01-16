@@ -17,7 +17,16 @@
         </div>
     </div>
     <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <button type="button" class="btn btn-secondary">Add book</button>
+        <form:form action="/books/add/form" method="get">
+            <button type="submit" class="btn btn-secondary">Add book</button>
+        </form:form>
+    </div>
+    <div class="btn-group mr-2 search" role="group" aria-label="Thread group">
+        <form class="form-inline">
+            <label for="bookName" class="sr-only">Password</label>
+            <input type="text" class="form-control" id="bookName" placeholder="Book name">
+            <button type="submit" class="btn">Find</button>
+        </form>
     </div>
 </div>
 
@@ -27,7 +36,7 @@
 
     <table class="table">
         <thead>
-        <tr class="tab-header-area">
+        <tr class="tab-header-area bg-info">
             <td>id</td>
             <td>name</td>
             <td>description</td>
@@ -35,6 +44,7 @@
             <td>author</td>
             <td>publisher</td>
             <td>content</td>
+            <td></td>
         </tr>
         </thead>
 

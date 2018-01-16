@@ -31,4 +31,8 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/error-page.jsp"/>
 	</definition>
 
+	<definition name="books/add/form" extends="home">
+		<put-attribute name="body" value="/WEB-INF/jsp/add-book-form.jsp"/>
+	</definition>
+
 </tiles-definitions>
