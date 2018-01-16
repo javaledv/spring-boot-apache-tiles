@@ -131,7 +131,7 @@ public class WebController {
     public ModelAndView addBook(@ModelAttribute("bookEntity") final BookEntity bookEntity) {
 
         final String bookName = bookEntity.getName();
-        if(bookName.length() < 1) {
+        if (bookName.length() < 1) {
             final ModelAndView modelAndView = new ModelAndView("redirect:/books/add/form");
             modelAndView.addObject("error", "Empty field name!");
             return modelAndView;
@@ -148,6 +148,27 @@ public class WebController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("bookEntity", new BookEntity());
         modelAndView.addObject("error", error);
+
+        return modelAndView;
+    }
+
+    @GetMapping("books/search")
+    public ModelAndView findBooks(@RequestParam(value = "bookName") final String bookName) {
+        final List<BookEntity> books = bookService.getAllByName(bookName);
+        final boolean isFree = false;
+
+        final Map<BookEntity, Boolean> result = new HashMap<>();
+
+        for (BookEntity bookEntity : books) {
+            if (userService.getUserByBook(bookEntity).isPresent()) {
+                result.put(bookEntity, true);
+            } else {
+                result.put(bookEntity, false);
+            }
+        }
+
+        final ModelAndView modelAndView = new ModelAndView("searchResult");
+        modelAndView.addObject("books", result);
 
         return modelAndView;
     }

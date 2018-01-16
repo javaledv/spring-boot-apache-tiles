@@ -22,11 +22,10 @@
         </form:form>
     </div>
     <div class="btn-group mr-2 search" role="group" aria-label="Thread group">
-        <form class="form-inline">
-            <label for="bookName" class="sr-only">Password</label>
-            <input type="text" class="form-control" id="bookName" placeholder="Book name">
+       <form:form action="/books/search" method="get">
+            <input type="text" name="bookName" class="form-control" id="bookName" placeholder="Book name"/>
             <button type="submit" class="btn">Find</button>
-        </form>
+       </form:form>
     </div>
 </div>
 

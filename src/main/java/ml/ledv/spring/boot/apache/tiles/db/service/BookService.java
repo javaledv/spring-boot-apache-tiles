@@ -19,4 +19,5 @@ public interface BookService {
 
     void updateId(String newId, String id);
 
+    List<BookEntity> getAllByName(String name);
 }

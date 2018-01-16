@@ -35,4 +35,8 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/add-book-form.jsp"/>
 	</definition>
 
+	<definition name="searchResult" extends="home">
+		<put-attribute name="body" value="/WEB-INF/jsp/book-search-result.jsp"/>
+	</definition>
+
 </tiles-definitions>

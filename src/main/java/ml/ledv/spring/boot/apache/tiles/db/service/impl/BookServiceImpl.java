@@ -56,4 +56,9 @@ public class BookServiceImpl implements BookService {
     public void updateId(final String newId,final String id) {
         bookRepository.updateId(newId, id);
     }
+
+    @Override
+    public List<BookEntity> getAllByName(final String name) {
+        return bookRepository.findByName(name);
+    }
 }
