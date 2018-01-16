@@ -22,7 +22,7 @@
         </form:form>
     </div>
     <div class="btn-group mr-2 search" role="group" aria-label="Thread group">
-       <form:form action="/books/search" method="get">
+       <form:form action="/books/search" method="get" cssClass="form-inline">
             <input type="text" name="bookName" class="form-control" id="bookName" placeholder="Book name"/>
             <button type="submit" class="btn">Find</button>
        </form:form>
