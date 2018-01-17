@@ -19,85 +19,20 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("/api")
-public class BookLibraryRestAPI {
+@RequestMapping("/api/books")
+public class BookControllerApi {
 
     private UserService userService;
 
     private BookService bookService;
 
     @Autowired
-    public BookLibraryRestAPI(final UserService userService, final BookService bookService) {
+    public BookControllerApi(final UserService userService, final BookService bookService) {
         this.userService = userService;
         this.bookService = bookService;
     }
 
-    @PostMapping(value = "/users", produces={"application/json", "application/json"})
-    public ResponseEntity<?> createUser(@RequestBody final UserParams userParams) {
-
-        final String login = userParams.getLogin();
-
-        if (login == null) {
-            return ResponseEntity.badRequest().body(new ErrorResponse("Empty field login"));
-        } else {
-            userService.createUser(login);
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @GetMapping(value = "/users", produces={"application/xml", "application/json"})
-    public ResponseEntity<?> getUsers() {
-        return ResponseEntity.ok().body(userService.getAll());
-    }
-
-    @DeleteMapping(value = "/users/{id}", produces={"application/xml", "application/json"})
-    public ResponseEntity<?> deleteUser(@PathVariable final String id) {
-
-        final Optional<UserEntity> userOptional = userService.getUserById(id);
-
-        if (!userOptional.isPresent()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            userService.deleteUser(userOptional.get());
-            return ResponseEntity.ok().build();
-        }
-    }
-
-    @PutMapping(value = "/users/{id}", produces={"application/xml", "application/json"})
-    public ResponseEntity<?> reserveBook(@PathVariable final String id, @RequestBody final BookParam bookParams) {
-
-        final Optional<UserEntity> userOptional = userService.getUserById(id);
-
-        if (!userOptional.isPresent()) {
-            return ResponseEntity.badRequest().body(new ErrorResponse("Not found user with id. " + id));
-        } else {
-
-            final String bookId = bookParams.getId();
-
-            if (bookId == null) {
-                return ResponseEntity.badRequest().body(new ErrorResponse("Empty id field. "));
-            } else {
-
-                final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
-
-                if (!bookOptional.isPresent()) {
-                    return ResponseEntity.badRequest().body(new ErrorResponse("Not found book with id. " + bookId));
-                } else {
-
-                    final UserEntity userEntity = userOptional.get();
-                    final BookEntity bookEntity = bookOptional.get();
-
-                    userEntity.getBooks().add(bookEntity);
-
-                    userService.updateUser(userEntity);
-
-                    return ResponseEntity.ok().build();
-                }
-            }
-        }
-    }
-
-    @PostMapping(value = "/books", produces={"application/xml", "application/json"})
+    @PostMapping(produces={"application/xml", "application/json"})
     public ResponseEntity<?> createBook(@RequestBody final BookParam bookParams) {
 
         final String name = bookParams.getName();
@@ -110,12 +45,12 @@ public class BookLibraryRestAPI {
         }
     }
 
-    @GetMapping(value = "/books", produces={"application/xml", "application/json"})
+    @GetMapping(produces={"application/xml", "application/json"})
     public ResponseEntity<?> getBooks() {
         return ResponseEntity.ok(bookService.getAll());
     }
 
-    @GetMapping(value = "/books/free", produces={"application/xml", "application/json"})
+    @GetMapping(value = "/free", produces={"application/xml", "application/json"})
     public ResponseEntity<?> getBooksFree(){
 
         final List<BookEntity> books = bookService.getAll();
@@ -131,7 +66,7 @@ public class BookLibraryRestAPI {
         return ResponseEntity.ok(freeBooks);
     }
 
-    @DeleteMapping(value = "/books/{id}", produces={"application/xml", "application/json"})
+    @DeleteMapping(value = "/{id}", produces={"application/xml", "application/json"})
     public ResponseEntity<?> deleteBook(@PathVariable final String id) {
 
         final Optional<BookEntity> bookOptional = bookService.getBookById(id);
@@ -144,7 +79,7 @@ public class BookLibraryRestAPI {
         }
     }
 
-    @PutMapping(value = "/books/{id}", produces={"application/xml", "application/json"})
+    @PutMapping(value = "/{id}", produces={"application/xml", "application/json"})
     public ResponseEntity<?> cancelBookReservation(@PathVariable final String id, @RequestBody final UserParams userParams) {
 
         final String userId = userParams.getId();

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service("newsPaperCreator")
 public class NewsPaperCreator implements EntityCreator {
+
     @Override
     public BaseEntity createEntity() {
         return new NewspaperEntity();

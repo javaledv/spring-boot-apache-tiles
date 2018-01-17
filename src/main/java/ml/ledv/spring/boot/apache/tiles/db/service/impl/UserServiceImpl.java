@@ -2,7 +2,6 @@ package ml.ledv.spring.boot.apache.tiles.db.service.impl;
 
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.BookEntity;
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.UserEntity;
-import ml.ledv.spring.boot.apache.tiles.db.repository.jpa.UserRepository;
 import ml.ledv.spring.boot.apache.tiles.db.repository.mongo.UserRepositoryMongo;
 import ml.ledv.spring.boot.apache.tiles.db.service.UserService;
 import ml.ledv.spring.boot.apache.tiles.db.utils.EntityCreator;

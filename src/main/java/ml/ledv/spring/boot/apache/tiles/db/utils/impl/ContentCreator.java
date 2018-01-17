@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service("contentCreator")
 public class ContentCreator implements EntityCreator {
+
     @Override
     public BaseEntity createEntity() {
         return new ContentEntity();
