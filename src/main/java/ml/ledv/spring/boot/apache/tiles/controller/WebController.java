@@ -95,7 +95,7 @@ public class WebController {
     @PostMapping("/books/cancel-reservation")
     public ModelAndView cancelReservation(@RequestParam("bookId") final String bookId) {
 
-        final ModelAndView modelAndViewError = new ModelAndView("redirect:/error-page");
+        final ModelAndView modelAndViewError = new ModelAndView("error");
 
         final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
 
@@ -170,5 +170,22 @@ public class WebController {
         modelAndView.addObject("books", result);
 
         return modelAndView;
+    }
+
+    @PostMapping("books/remove")
+    public ModelAndView removeBook(@RequestParam(value = "bookId") final String bookId) {
+
+        final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
+
+        if (!bookOptional.isPresent()) {
+            final ModelAndView errorModelEndView = new ModelAndView("error");
+            errorModelEndView.addObject("error", "Book with id " + bookId + " is not exist!");
+            return errorModelEndView;
+        }else {
+            final ModelAndView modelAndView = new ModelAndView("redirect:/books");
+            bookService.deleteBook(bookOptional.get());
+
+            return modelAndView;
+        }
     }
 }

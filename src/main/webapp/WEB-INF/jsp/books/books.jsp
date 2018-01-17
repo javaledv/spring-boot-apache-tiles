@@ -22,10 +22,10 @@
         </form:form>
     </div>
     <div class="btn-group mr-2 search" role="group" aria-label="Thread group">
-       <form:form action="/books/search" method="get" cssClass="form-inline">
+        <form:form action="/books/search" method="get" cssClass="form-inline">
             <input type="text" name="bookName" class="form-control" id="bookName" placeholder="Book name"/>
             <button type="submit" class="btn">Find</button>
-       </form:form>
+        </form:form>
     </div>
 </div>
 
@@ -44,6 +44,8 @@
             <td>publisher</td>
             <td>content</td>
             <td></td>
+            <td></td>
+            <td></td>
         </tr>
         </thead>
 
@@ -57,25 +59,30 @@
                 <td>${listValue.key.author}</td>
                 <td>${listValue.key.publisher}</td>
                 <td>${listValue.key.content}</td>
-                <c:if test="${isFree}">
-                    <td>
+                <td>
+                    <c:if test="${isFree}">
                         <form:form action="/books/book-it" method="post">
                             <input hidden name="id" value="${listValue.key.id}">
-                            <button type="submit" class="btn btn-outline-info">book it</button>
+                            <button type="submit" class="btn btn-success">book it</button>
                         </form:form>
-                    </td>
-                </c:if>
+                    </c:if>
+                </td>
                 <td>
                     <c:if test="${listValue.value}">
                         <form:form action="/books/cancel-reservation" method="post">
                             <input hidden name="bookId" value="${listValue.key.id}">
-                            <button type="submit" class="btn btn-outline-info">de-reserve</button>
+                            <button type="submit" class="btn btn-success">de-reserve</button>
                         </form:form>
                     </c:if>
+                </td>
+                <td>
+                    <form:form action="/books/remove" method="post">
+                        <input hidden name="bookId" value="${listValue.key.id}">
+                        <button type="submit" class="btn btn-danger">x</button>
+                    </form:form>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-
 </c:if>

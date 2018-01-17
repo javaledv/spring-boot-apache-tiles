@@ -9,47 +9,57 @@
 <c:if test="${not empty books}">
 
     <table class="table">
-    <thead>
-    <tr class="tab-header-area bg-info">
-    <td>id</td>
-    <td>name</td>
-    <td>description</td>
-    <td>isbn</td>
-    <td>author</td>
-    <td>publisher</td>
-    <td>content</td>
-    <td></td>
-    </tr>
-    </thead>
+        <thead>
+        <tr class="tab-header-area bg-info">
+            <td>id</td>
+            <td>name</td>
+            <td>description</td>
+            <td>isbn</td>
+            <td>author</td>
+            <td>publisher</td>
+            <td>content</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
 
-    <tbody>
-    <c:forEach var="listValue" items="${books}">
-        <tr>
-            <td>${listValue.key.id}</td>
-            <td>${listValue.key.name}</td>
-            <td>${listValue.key.description}</td>
-            <td>${listValue.key.isbn}</td>
-            <td>${listValue.key.author}</td>
-            <td>${listValue.key.publisher}</td>
-            <td>${listValue.key.content}</td>
-            <c:if test="${!listValue.value}">
+        <tbody>
+        <c:forEach var="listValue" items="${books}">
+            <tr>
+                <td>${listValue.key.id}</td>
+                <td>${listValue.key.name}</td>
+                <td>${listValue.key.description}</td>
+                <td>${listValue.key.isbn}</td>
+                <td>${listValue.key.author}</td>
+                <td>${listValue.key.publisher}</td>
+                <td>${listValue.key.content}</td>
+
                 <td>
+                    <c:if test="${!listValue.value}">
+
                     <form:form action="/books/book-it" method="post">
-                        <input hidden name="id" value="${listValue.key.id}">
-                        <button type="submit" class="btn btn-outline-info">book it</button>
+                    <input hidden name="id" value="${listValue.key.id}">
+                    <button type="submit" class="btn btn-success">book it</button>
+                    </form:form>
+
+                    </c:if>
+                <td>
+                    <c:if test="${listValue.value}">
+                        <form:form action="/books/cancel-reservation" method="post">
+                            <input hidden name="bookId" value="${listValue.key.id}">
+                            <button type="submit" class="btn btn-success">de-reserve</button>
+                        </form:form>
+                    </c:if>
+                </td>
+                <td>
+                    <form:form action="/books/remove" method="post">
+                        <input hidden name="bookId" value="${listValue.key.id}">
+                        <button type="submit" class="btn btn-danger">x</button>
                     </form:form>
                 </td>
-            </c:if>
-            <td>
-                <c:if test="${listValue.value}">
-                    <form:form action="/books/cancel-reservation" method="post">
-                        <input hidden name="bookId" value="${listValue.key.id}">
-                        <button type="submit" class="btn btn-outline-info">de-reserve</button>
-                    </form:form>
-                </c:if>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
+            </tr>
+        </c:forEach>
+        </tbody>
     </table>
-  </c:if>
+</c:if>

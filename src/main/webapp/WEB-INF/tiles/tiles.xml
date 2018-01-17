@@ -24,7 +24,7 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/books/books.jsp"/>
 	</definition>
 
-	<definition name="error-page" extends="home">
+	<definition name="error" extends="home">
 		<put-attribute name="body" value="/WEB-INF/jsp/books/error-page.jsp"/>
 	</definition>
 

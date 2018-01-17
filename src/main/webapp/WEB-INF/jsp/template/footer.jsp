@@ -4,7 +4,5 @@
 
 <nav class="navbar navbar-inverse">
     <div class="container">
-
-        </div>
     </div>
 </nav>
