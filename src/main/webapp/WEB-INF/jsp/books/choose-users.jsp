@@ -14,11 +14,7 @@
     </div>
 </div>
 
-<c:if test="${not empty bookId}">
-    <p>Add book with id "${bookId}" for user: </p>
-</c:if>
-
-<h1>Users</h1>
+<h1>Add Book to User: </h1>
 <c:if test="${not empty users}">
 
     <table class="table">
@@ -35,10 +31,10 @@
                 <td>${listValue.id}</td>
                 <td>${listValue.login}</td>
                 <td>
-                    <form:form action="/books/book-it/reservation" method="post">
+                    <form:form action="/books/reservation" method="post">
                         <input hidden name="bookId" value="${bookId}">
                         <input hidden name="userId" value="${listValue.id}">
-                        <button type="submit" class="btn btn-outline-info">+</button>
+                        <button type="submit" class="btn btn-success">+</button>
                     </form:form>
                 </td>
             </tr>

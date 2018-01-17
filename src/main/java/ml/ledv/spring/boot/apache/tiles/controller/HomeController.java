@@ -10,7 +10,7 @@ public class HomeController {
 
     @GetMapping("/")
     public ModelAndView getHomePage() {
-        return new ModelAndView("home");
+        return new ModelAndView("rootPage");
     }
 
     @GetMapping("/error-page")

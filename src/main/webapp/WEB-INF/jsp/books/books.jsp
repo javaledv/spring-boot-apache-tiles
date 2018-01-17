@@ -61,7 +61,7 @@
                 <td>${listValue.key.content}</td>
                 <td>
                     <c:if test="${listValue.value}">
-                        <form:form action="/books/book-it" method="post">
+                        <form:form action="/books/users" method="post">
                             <input hidden name="id" value="${listValue.key.id}">
                             <button type="submit" class="btn btn-success">book it</button>
                         </form:form>
@@ -69,7 +69,7 @@
                 </td>
                 <td>
                     <c:if test="${not listValue.value}">
-                        <form:form action="/books/cancel-reservation" method="post">
+                        <form:form action="/books/reservation/cancel" method="post">
                             <input hidden name="bookId" value="${listValue.key.id}">
                             <button type="submit" class="btn btn-success">de-reserve</button>
                         </form:form>

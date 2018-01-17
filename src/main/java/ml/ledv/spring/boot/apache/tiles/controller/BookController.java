@@ -30,19 +30,19 @@ public class BookController {
     public ModelAndView getBooks() {
 
         final List<BookEntity> books = bookService.getAll();
-        final ModelAndView modelAndView = new ModelAndView();
+        final ModelAndView modelAndView = new ModelAndView("showBooks");
 
-        final Map<BookEntity, Boolean> resultMap = new HashMap<>();
+        final Map<BookEntity, Boolean> resultBooksMap = new HashMap<>();
 
         for (BookEntity bookEntity : books) {
             if (userService.getUserByBook(bookEntity).isPresent()) {
-                resultMap.put(bookEntity, !FREE_BOOK);
+                resultBooksMap.put(bookEntity, !FREE_BOOK);
             } else {
-                resultMap.put(bookEntity, FREE_BOOK);
+                resultBooksMap.put(bookEntity, FREE_BOOK);
             }
         }
 
-        modelAndView.addObject("books", resultMap);
+        modelAndView.addObject("books", resultBooksMap);
 
         return modelAndView;
     }
@@ -50,6 +50,7 @@ public class BookController {
     @GetMapping("/free")
     public ModelAndView getFreeBooks() {
 
+        final ModelAndView modelAndView = new ModelAndView("showFreeBooks");
         final List<BookEntity> books = bookService.getAll();
         final Map<BookEntity, Boolean> freeBooks = new HashMap<>();
 
@@ -60,16 +61,13 @@ public class BookController {
                 freeBooks.put(bookEntity, FREE_BOOK);
             }
         }
-
-        final ModelAndView modelAndView = new ModelAndView();
-
         modelAndView.addObject("books", freeBooks);
 
         return modelAndView;
     }
 
-    @PostMapping("/book-it")
-    public ModelAndView bookIt(@RequestParam("id") final String id) {
+    @PostMapping("/users")
+    public ModelAndView showUsers(@RequestParam("id") final String id) {
 
         final ModelAndView modelAndView = new ModelAndView("chooseUser");
         final List<UserEntity> users = userService.getAll();
@@ -79,8 +77,8 @@ public class BookController {
         return modelAndView;
     }
 
-    @PostMapping("/book-it/reservation")
-    public ModelAndView reservation(@RequestParam("bookId") final String bookId, @RequestParam("userId") final String userId) {
+    @PostMapping("/reservation")
+    public ModelAndView reserveBook(@RequestParam("bookId") final String bookId, @RequestParam("userId") final String userId) {
 
         final Optional<UserEntity> userOptional = userService.getUserById(userId);
         final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
@@ -90,7 +88,7 @@ public class BookController {
         return new ModelAndView("redirect:/books");
     }
 
-    @PostMapping("/cancel-reservation")
+    @PostMapping("/reservation/cancel")
     public ModelAndView cancelReservation(@RequestParam("bookId") final String bookId) {
 
         final ModelAndView modelAndViewError = new ModelAndView("error");
@@ -135,7 +133,7 @@ public class BookController {
     @GetMapping("/add/form")
     public ModelAndView addBookForm(@RequestParam(value = "error", required = false) String error) {
 
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("showBooksAddForm");
         modelAndView.addObject("bookEntity", new BookEntity());
         modelAndView.addObject("error", error);
 
@@ -145,7 +143,6 @@ public class BookController {
     @GetMapping("/search")
     public ModelAndView findBooks(@RequestParam(value = "bookName") final String bookName) {
         final List<BookEntity> books = bookService.getAllByName(bookName);
-        final boolean isFree = false;
 
         final Map<BookEntity, Boolean> result = new HashMap<>();
 
@@ -157,7 +154,7 @@ public class BookController {
             }
         }
 
-        final ModelAndView modelAndView = new ModelAndView("books");
+        final ModelAndView modelAndView = new ModelAndView("showBooks");
         modelAndView.addObject("books", result);
 
         return modelAndView;
