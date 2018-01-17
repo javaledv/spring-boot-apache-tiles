@@ -1,4 +1,4 @@
-package ml.ledv.spring.boot.apache.tiles.controller;
+package ml.ledv.spring.boot.apache.tiles.controller.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

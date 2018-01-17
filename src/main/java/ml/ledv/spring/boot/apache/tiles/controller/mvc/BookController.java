@@ -1,4 +1,4 @@
-package ml.ledv.spring.boot.apache.tiles.controller;
+package ml.ledv.spring.boot.apache.tiles.controller.mvc;
 
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.BookEntity;
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.UserEntity;

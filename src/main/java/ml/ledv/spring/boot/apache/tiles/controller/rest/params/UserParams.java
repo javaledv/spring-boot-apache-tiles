@@ -1,4 +1,4 @@
-package ml.ledv.library.rest.params;
+package ml.ledv.spring.boot.apache.tiles.controller.rest.params;
 
 public class UserParams {
 

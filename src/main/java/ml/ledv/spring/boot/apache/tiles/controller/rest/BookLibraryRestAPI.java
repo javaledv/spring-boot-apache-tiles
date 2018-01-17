@@ -1,12 +1,12 @@
-package ml.ledv.library.rest;
+package ml.ledv.spring.boot.apache.tiles.controller.rest;
 
-import ml.ledv.library.db.entity.impl.BookEntity;
-import ml.ledv.library.db.entity.impl.UserEntity;
-import ml.ledv.library.db.service.BookService;
-import ml.ledv.library.db.service.UserService;
-import ml.ledv.library.rest.params.BookParam;
-import ml.ledv.library.rest.params.UserParams;
-import ml.ledv.library.rest.responce.ErrorResponse;
+import ml.ledv.spring.boot.apache.tiles.controller.rest.params.BookParam;
+import ml.ledv.spring.boot.apache.tiles.controller.rest.params.UserParams;
+import ml.ledv.spring.boot.apache.tiles.controller.rest.responce.ErrorResponse;
+import ml.ledv.spring.boot.apache.tiles.db.entity.impl.BookEntity;
+import ml.ledv.spring.boot.apache.tiles.db.entity.impl.UserEntity;
+import ml.ledv.spring.boot.apache.tiles.db.service.BookService;
+import ml.ledv.spring.boot.apache.tiles.db.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/api")
@@ -31,7 +32,7 @@ public class BookLibraryRestAPI {
         this.bookService = bookService;
     }
 
-    @PostMapping("/users")
+    @PostMapping(value = "/users", produces={"application/json", "application/json"})
     public ResponseEntity<?> createUser(@RequestBody final UserParams userParams) {
 
         final String login = userParams.getLogin();
@@ -44,12 +45,12 @@ public class BookLibraryRestAPI {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/users")
+    @GetMapping(value = "/users", produces={"application/xml", "application/json"})
     public ResponseEntity<?> getUsers() {
         return ResponseEntity.ok().body(userService.getAll());
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping(value = "/users/{id}", produces={"application/xml", "application/json"})
     public ResponseEntity<?> deleteUser(@PathVariable final String id) {
 
         final Optional<UserEntity> userOptional = userService.getUserById(id);
@@ -62,7 +63,7 @@ public class BookLibraryRestAPI {
         }
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping(value = "/users/{id}", produces={"application/xml", "application/json"})
     public ResponseEntity<?> reserveBook(@PathVariable final String id, @RequestBody final BookParam bookParams) {
 
         final Optional<UserEntity> userOptional = userService.getUserById(id);
@@ -96,7 +97,7 @@ public class BookLibraryRestAPI {
         }
     }
 
-    @PostMapping("/books")
+    @PostMapping(value = "/books", produces={"application/xml", "application/json"})
     public ResponseEntity<?> createBook(@RequestBody final BookParam bookParams) {
 
         final String name = bookParams.getName();
@@ -109,12 +110,12 @@ public class BookLibraryRestAPI {
         }
     }
 
-    @GetMapping("/books")
+    @GetMapping(value = "/books", produces={"application/xml", "application/json"})
     public ResponseEntity<?> getBooks() {
         return ResponseEntity.ok(bookService.getAll());
     }
 
-    @GetMapping("/books/free")
+    @GetMapping(value = "/books/free", produces={"application/xml", "application/json"})
     public ResponseEntity<?> getBooksFree(){
 
         final List<BookEntity> books = bookService.getAll();
@@ -130,7 +131,7 @@ public class BookLibraryRestAPI {
         return ResponseEntity.ok(freeBooks);
     }
 
-    @DeleteMapping("/books/{id}")
+    @DeleteMapping(value = "/books/{id}", produces={"application/xml", "application/json"})
     public ResponseEntity<?> deleteBook(@PathVariable final String id) {
 
         final Optional<BookEntity> bookOptional = bookService.getBookById(id);
@@ -143,7 +144,7 @@ public class BookLibraryRestAPI {
         }
     }
 
-    @PutMapping("/books/{id}")
+    @PutMapping(value = "/books/{id}", produces={"application/xml", "application/json"})
     public ResponseEntity<?> cancelBookReservation(@PathVariable final String id, @RequestBody final UserParams userParams) {
 
         final String userId = userParams.getId();

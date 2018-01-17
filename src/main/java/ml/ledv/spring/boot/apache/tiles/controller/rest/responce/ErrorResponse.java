@@ -1,4 +1,4 @@
-package ml.ledv.library.rest.responce;
+package ml.ledv.spring.boot.apache.tiles.controller.rest.responce;
 
 public class ErrorResponse {
 
