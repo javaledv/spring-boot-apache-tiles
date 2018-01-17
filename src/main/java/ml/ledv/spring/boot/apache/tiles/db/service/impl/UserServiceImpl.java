@@ -2,7 +2,8 @@ package ml.ledv.spring.boot.apache.tiles.db.service.impl;
 
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.BookEntity;
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.UserEntity;
-import ml.ledv.spring.boot.apache.tiles.db.repository.UserRepository;
+import ml.ledv.spring.boot.apache.tiles.db.repository.jpa.UserRepository;
+import ml.ledv.spring.boot.apache.tiles.db.repository.mongo.UserRepositoryMongo;
 import ml.ledv.spring.boot.apache.tiles.db.service.UserService;
 import ml.ledv.spring.boot.apache.tiles.db.utils.EntityCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,12 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private UserRepositoryMongo userRepository;
 
     private EntityCreator userCreator;
 
     @Autowired
-    public UserServiceImpl(final UserRepository userRepository, final EntityCreator userCreator) {
+    public UserServiceImpl(final UserRepositoryMongo userRepository, final EntityCreator userCreator) {
         this.userRepository = userRepository;
         this.userCreator = userCreator;
     }
@@ -75,11 +76,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity saveUser(final UserEntity userEntity) {
         return userRepository.save(userEntity);
-    }
-
-    @Override
-    public void updateUserId(final String newId, final String id) {
-        userRepository.updateId(newId, id);
     }
 
     @Override

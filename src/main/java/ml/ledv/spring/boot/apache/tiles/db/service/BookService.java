@@ -17,7 +17,5 @@ public interface BookService {
 
     BookEntity saveBook(BookEntity book);
 
-    void updateId(String newId, String id);
-
     List<BookEntity> getAllByName(String name);
 }

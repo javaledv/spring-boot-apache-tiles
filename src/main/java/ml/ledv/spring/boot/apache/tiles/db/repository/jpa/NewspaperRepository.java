@@ -1,4 +1,4 @@
-package ml.ledv.spring.boot.apache.tiles.db.repository;
+package ml.ledv.spring.boot.apache.tiles.db.repository.jpa;
 
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.NewspaperEntity;
 import org.springframework.data.repository.PagingAndSortingRepository;

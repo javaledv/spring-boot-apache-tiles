@@ -1,7 +1,7 @@
 package ml.ledv.spring.boot.apache.tiles.db.service.impl;
 
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.BookEntity;
-import ml.ledv.spring.boot.apache.tiles.db.repository.BookRepository;
+import ml.ledv.spring.boot.apache.tiles.db.repository.mongo.BookRepositoryMongo;
 import ml.ledv.spring.boot.apache.tiles.db.service.BookService;
 import ml.ledv.spring.boot.apache.tiles.db.utils.EntityCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import java.util.Optional;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private BookRepository bookRepository;
+    private BookRepositoryMongo bookRepository;
 
     private EntityCreator bookCreator;
 
     @Autowired
-    public BookServiceImpl(final BookRepository bookRepository, final EntityCreator bookCreator) {
+    public BookServiceImpl(final BookRepositoryMongo bookRepository, final EntityCreator bookCreator) {
         this.bookRepository = bookRepository;
         this.bookCreator = bookCreator;
     }
@@ -50,11 +50,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookEntity saveBook(final BookEntity book) {
        return bookRepository.save(book);
-    }
-
-    @Override
-    public void updateId(final String newId,final String id) {
-        bookRepository.updateId(newId, id);
     }
 
     @Override
