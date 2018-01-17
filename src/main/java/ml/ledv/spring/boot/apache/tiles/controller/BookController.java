@@ -12,44 +12,42 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 @Controller
-public class WebController {
+@RequestMapping("/books")
+public class BookController {
+
+    private static final boolean FREE_BOOK = true;
 
     private BookService bookService;
     private UserService userService;
 
     @Autowired
-    public WebController(final BookService bookService, final UserService userService) {
+    public BookController(final BookService bookService, final UserService userService) {
         this.bookService = bookService;
         this.userService = userService;
     }
 
-    @RequestMapping("/")
-    public String welcome() {
-        return "home";
-    }
-
-    @GetMapping("/books")
+    @GetMapping
     public ModelAndView getBooks() {
 
         final List<BookEntity> books = bookService.getAll();
         final ModelAndView modelAndView = new ModelAndView();
-        final boolean isFree = false;
 
-        final Map<BookEntity, Boolean> bok = new HashMap<>();
+        final Map<BookEntity, Boolean> resultMap = new HashMap<>();
+
         for (BookEntity bookEntity : books) {
             if (userService.getUserByBook(bookEntity).isPresent()) {
-                bok.put(bookEntity, true);
+                resultMap.put(bookEntity, !FREE_BOOK);
             } else {
-                bok.put(bookEntity, false);
+                resultMap.put(bookEntity, FREE_BOOK);
             }
         }
 
-        modelAndView.addObject("books", bok);
+        modelAndView.addObject("books", resultMap);
 
         return modelAndView;
     }
 
-    @GetMapping("/books/free")
+    @GetMapping("/free")
     public ModelAndView getFreeBooks() {
 
         final List<BookEntity> books = bookService.getAll();
@@ -59,18 +57,18 @@ public class WebController {
             Optional<UserEntity> userOptional = userService.getUserByBook(bookEntity);
 
             if (!userOptional.isPresent()) {
-                freeBooks.put(bookEntity, false);
+                freeBooks.put(bookEntity, FREE_BOOK);
             }
         }
 
         final ModelAndView modelAndView = new ModelAndView();
-        final boolean isFree = true;
+
         modelAndView.addObject("books", freeBooks);
-        modelAndView.addObject("isFree", isFree);
+
         return modelAndView;
     }
 
-    @PostMapping("/books/book-it")
+    @PostMapping("/book-it")
     public ModelAndView bookIt(@RequestParam("id") final String id) {
 
         final ModelAndView modelAndView = new ModelAndView("chooseUser");
@@ -81,7 +79,7 @@ public class WebController {
         return modelAndView;
     }
 
-    @PostMapping("/books/book-it/reservation")
+    @PostMapping("/book-it/reservation")
     public ModelAndView reservation(@RequestParam("bookId") final String bookId, @RequestParam("userId") final String userId) {
 
         final Optional<UserEntity> userOptional = userService.getUserById(userId);
@@ -92,7 +90,7 @@ public class WebController {
         return new ModelAndView("redirect:/books");
     }
 
-    @PostMapping("/books/cancel-reservation")
+    @PostMapping("/cancel-reservation")
     public ModelAndView cancelReservation(@RequestParam("bookId") final String bookId) {
 
         final ModelAndView modelAndViewError = new ModelAndView("error");
@@ -119,14 +117,7 @@ public class WebController {
         }
     }
 
-    @GetMapping("/error-page")
-    public ModelAndView error(@RequestParam("errMsg") final String errMsg) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("errMsg", errMsg);
-        return modelAndView;
-    }
-
-    @PostMapping("/books/add")
+    @PostMapping("/add")
     public ModelAndView addBook(@ModelAttribute("bookEntity") final BookEntity bookEntity) {
 
         final String bookName = bookEntity.getName();
@@ -141,7 +132,7 @@ public class WebController {
         return new ModelAndView("redirect:/books");
     }
 
-    @GetMapping("/books/add/form")
+    @GetMapping("/add/form")
     public ModelAndView addBookForm(@RequestParam(value = "error", required = false) String error) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -151,7 +142,7 @@ public class WebController {
         return modelAndView;
     }
 
-    @GetMapping("books/search")
+    @GetMapping("/search")
     public ModelAndView findBooks(@RequestParam(value = "bookName") final String bookName) {
         final List<BookEntity> books = bookService.getAllByName(bookName);
         final boolean isFree = false;
@@ -172,7 +163,7 @@ public class WebController {
         return modelAndView;
     }
 
-    @PostMapping("books/remove")
+    @PostMapping("/remove")
     public ModelAndView removeBook(@RequestParam(value = "bookId") final String bookId) {
 
         final Optional<BookEntity> bookOptional = bookService.getBookById(bookId);
@@ -189,10 +180,11 @@ public class WebController {
         }
     }
 
-    @GetMapping("/books/users/search")
+    @GetMapping("/users/search")
     public ModelAndView searchUser(@ModelAttribute("users") final ArrayList<UserEntity> users,
                                    @RequestParam(value = "userLogin") final String userLogin,
                                    @RequestParam(value = "bookId") final String bookId) {
+
         final ModelAndView modelAndView = new ModelAndView("chooseUser");
 
         List<UserEntity> resultList = userService.getAllByLogin(userLogin);

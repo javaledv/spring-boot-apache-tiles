@@ -60,7 +60,7 @@
                 <td>${listValue.key.publisher}</td>
                 <td>${listValue.key.content}</td>
                 <td>
-                    <c:if test="${isFree}">
+                    <c:if test="${listValue.value}">
                         <form:form action="/books/book-it" method="post">
                             <input hidden name="id" value="${listValue.key.id}">
                             <button type="submit" class="btn btn-success">book it</button>
@@ -68,7 +68,7 @@
                     </c:if>
                 </td>
                 <td>
-                    <c:if test="${listValue.value}">
+                    <c:if test="${not listValue.value}">
                         <form:form action="/books/cancel-reservation" method="post">
                             <input hidden name="bookId" value="${listValue.key.id}">
                             <button type="submit" class="btn btn-success">de-reserve</button>
