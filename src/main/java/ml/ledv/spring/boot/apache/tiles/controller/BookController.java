@@ -151,9 +151,9 @@ public class BookController {
 
         for (BookEntity bookEntity : books) {
             if (userService.getUserByBook(bookEntity).isPresent()) {
-                result.put(bookEntity, true);
+                result.put(bookEntity, !FREE_BOOK);
             } else {
-                result.put(bookEntity, false);
+                result.put(bookEntity, FREE_BOOK);
             }
         }
 
