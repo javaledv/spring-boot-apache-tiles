@@ -186,7 +186,6 @@ public class BookController {
 
         List<UserEntity> resultList = userService.getAllByLogin(userLogin);
 
-
         modelAndView.addObject("bookId", bookId);
         modelAndView.addObject("users", resultList);
 
