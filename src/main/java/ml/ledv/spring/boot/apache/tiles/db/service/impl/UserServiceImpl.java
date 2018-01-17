@@ -81,4 +81,9 @@ public class UserServiceImpl implements UserService {
     public void updateUserId(final String newId, final String id) {
         userRepository.updateId(newId, id);
     }
+
+    @Override
+    public List<UserEntity> getAllByLogin(final String login) {
+        return userRepository.findByLogin(login);
+    }
 }

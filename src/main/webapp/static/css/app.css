@@ -8,6 +8,11 @@
     left: 70%;
 }
 
+.search-3 {
+    position: relative;
+    left: 77.5%;
+}
+
 html,
 body {
     height: 100%;
@@ -23,4 +28,9 @@ body {
 
 .footer {
     flex: 0 0 auto;
+}
+
+.footer-text {
+    text-align: center;
+    color: #afb4ba;
 }

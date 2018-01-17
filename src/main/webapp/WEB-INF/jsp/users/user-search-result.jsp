@@ -1,22 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group mr-2" role="group" aria-label="First group">
-        <form:form action="/users/add/form" method="get">
-            <button type="submit" class="btn btn-secondary">Add user</button>
-        </form:form>
-    </div>
-    <div class="btn-group mr-2 search-2" role="group" aria-label="Second group">
-       <form:form action="/users/search" method="get" cssClass="form-inline">
-            <input type="text" name="userLogin" class="form-control" id="userLogin" placeholder="User login"/>
-            <button type="submit" class="btn">Find</button>
-       </form:form>
-    </div>
-</div>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <h1>Users</h1>
 
@@ -46,5 +32,3 @@
         </c:forEach>
         </tbody>
     </table>
-
-</c:if>

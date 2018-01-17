@@ -3,6 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <nav class="navbar navbar-inverse">
-    <div class="container">
+    <div class="footer-text">
+        <p>2018 - ledv</p>
     </div>
 </nav>

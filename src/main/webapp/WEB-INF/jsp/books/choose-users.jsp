@@ -4,6 +4,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2 search-3" role="group" aria-label="First group">
+        <form:form action="/books/users/search" method="get" cssClass="form-inline">
+            <input type="text" name="userLogin" class="form-control" id="userLogin" placeholder="User login"/>
+            <input hidden type="text" name="bookId" value="${bookId}"/>
+            <button type="submit" class="btn">Find</button>
+        </form:form>
+    </div>
+</div>
+
 <c:if test="${not empty bookId}">
     <p>Add book with id "${bookId}" for user: </p>
 </c:if>

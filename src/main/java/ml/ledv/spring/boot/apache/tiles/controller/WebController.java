@@ -166,7 +166,7 @@ public class WebController {
             }
         }
 
-        final ModelAndView modelAndView = new ModelAndView("searchResult");
+        final ModelAndView modelAndView = new ModelAndView("books");
         modelAndView.addObject("books", result);
 
         return modelAndView;
@@ -181,11 +181,26 @@ public class WebController {
             final ModelAndView errorModelEndView = new ModelAndView("error");
             errorModelEndView.addObject("error", "Book with id " + bookId + " is not exist!");
             return errorModelEndView;
-        }else {
+        } else {
             final ModelAndView modelAndView = new ModelAndView("redirect:/books");
             bookService.deleteBook(bookOptional.get());
 
             return modelAndView;
         }
+    }
+
+    @GetMapping("/books/users/search")
+    public ModelAndView searchUser(@ModelAttribute("users") final ArrayList<UserEntity> users,
+                                   @RequestParam(value = "userLogin") final String userLogin,
+                                   @RequestParam(value = "bookId") final String bookId) {
+        final ModelAndView modelAndView = new ModelAndView("chooseUser");
+
+        List<UserEntity> resultList = userService.getAllByLogin(userLogin);
+
+
+        modelAndView.addObject("bookId", bookId);
+        modelAndView.addObject("users", resultList);
+
+        return modelAndView;
     }
 }

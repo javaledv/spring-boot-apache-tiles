@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
@@ -42,8 +44,8 @@ public class UserController {
             final ModelAndView modelAndView = new ModelAndView("redirect:/users/add/form");
             modelAndView.addObject("error", "Empty field login!");
             return modelAndView;
-        }else {
-         userService.createUser(userLogin);
+        } else {
+            userService.createUser(userLogin);
         }
 
         return new ModelAndView("redirect:/users");
@@ -59,4 +61,32 @@ public class UserController {
         return modelAndView;
     }
 
+    @PostMapping("/remove")
+    public ModelAndView removeUser(@RequestParam(value = "userId") final String userId) {
+
+        final Optional<UserEntity> userOptional = userService.getUserById(userId);
+
+        if (!userOptional.isPresent()) {
+            final ModelAndView errorModelEndView = new ModelAndView("error");
+            errorModelEndView.addObject("error", "User with id " + userId + " is not exist!");
+
+            return errorModelEndView;
+        } else {
+            final ModelAndView modelAndView = new ModelAndView("redirect:/users");
+
+            userService.deleteUser(userOptional.get());
+            return modelAndView;
+        }
+    }
+
+    @GetMapping("/search")
+    public ModelAndView findUsers(@RequestParam(value = "userLogin") final String userLogin) {
+
+        final List<UserEntity> users = userService.getAllByLogin(userLogin);
+        final ModelAndView modelAndView = new ModelAndView("getUsers");
+
+        modelAndView.addObject("users", users);
+
+        return modelAndView;
+    }
 }

@@ -27,4 +27,6 @@ public interface UserService {
     UserEntity saveUser(UserEntity userEntity);
 
     void updateUserId(String newId, String id);
+
+    List<UserEntity> getAllByLogin(String login);
 }
