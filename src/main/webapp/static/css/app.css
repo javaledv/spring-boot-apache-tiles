@@ -13,7 +13,6 @@
     left: 77.5%;
 }
 
-html,
 body {
     height: 100%;
     display: flex;
@@ -28,9 +27,15 @@ body {
 
 .footer {
     flex: 0 0 auto;
+    padding: 0;
+    border: 0;
+    height: 50px;
+    background-color: #0f0f15;
 }
 
 .footer-text {
     text-align: center;
     color: #afb4ba;
 }
+
+
