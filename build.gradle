@@ -2,6 +2,16 @@ group 'ml.ledv'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'war'
+
+war{
+    baseName = 'library'
+
+    manifest {
+        attributes 'Main-Class': 'ml.ledv.spring.boot.apache.tiles.Main'
+    }
+}
+
 
 sourceCompatibility = 1.8
 
