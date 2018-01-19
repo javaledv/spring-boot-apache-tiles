@@ -3,6 +3,7 @@ package ml.ledv.spring.boot.apache.tiles.controller.mvc;
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.UserEntity;
 import ml.ledv.spring.boot.apache.tiles.db.service.BookService;
 import ml.ledv.spring.boot.apache.tiles.db.service.UserService;
+import ml.ledv.spring.boot.apache.tiles.utils.Routing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping(Routing.USERS_PATH)
 public class UserController {
 
     private UserService userService;

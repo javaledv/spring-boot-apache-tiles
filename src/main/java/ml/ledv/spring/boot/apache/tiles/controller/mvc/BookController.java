@@ -4,6 +4,7 @@ import ml.ledv.spring.boot.apache.tiles.db.entity.impl.BookEntity;
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.UserEntity;
 import ml.ledv.spring.boot.apache.tiles.db.service.BookService;
 import ml.ledv.spring.boot.apache.tiles.db.service.UserService;
+import ml.ledv.spring.boot.apache.tiles.utils.Routing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 @Controller
-@RequestMapping("/books")
+@RequestMapping(Routing.BOOKS_PATH)
 public class BookController {
 
     private static final boolean FREE_BOOK = true;

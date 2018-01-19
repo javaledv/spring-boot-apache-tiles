@@ -7,6 +7,7 @@ import ml.ledv.spring.boot.apache.tiles.db.entity.impl.BookEntity;
 import ml.ledv.spring.boot.apache.tiles.db.entity.impl.UserEntity;
 import ml.ledv.spring.boot.apache.tiles.db.service.BookService;
 import ml.ledv.spring.boot.apache.tiles.db.service.UserService;
+import ml.ledv.spring.boot.apache.tiles.utils.Routing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping(Routing.API_PATH)
 public class BookLibraryRestAPI {
 
     private UserService userService;
