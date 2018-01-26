@@ -4,10 +4,39 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-	<definition name="welcome" template="/WEB-INF/jsp/welcome.jsp">
+
+	<definition name="rootPage" template="/WEB-INF/jsp/template/home.jsp">
 		<put-attribute name="title" value="Welcome Page" />
-		<put-attribute name="header" value="/WEB-INF/jsp/header.jsp" />
-		<put-attribute name="body" value="/WEB-INF/jsp/body.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/template/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
 	</definition>
+
+	<definition name="showBooks" extends="rootPage">
+		<put-attribute name="body" value="/WEB-INF/jsp/books/books.jsp"/>
+	</definition>
+	<definition name="showFreeBooks" extends="rootPage">
+		<put-attribute name="body" value="/WEB-INF/jsp/books/books.jsp"/>
+	</definition>
+	<definition name="showBooksAddForm" extends="rootPage">
+		<put-attribute name="body" value="/WEB-INF/jsp/books/add-book-form.jsp"/>
+	</definition>
+	<definition name="chooseUser" extends="rootPage">
+		<put-attribute name="body" value="/WEB-INF/jsp/books/choose-users.jsp"/>
+	</definition>
+
+	<definition name="error" extends="rootPage">
+		<put-attribute name="body" value="/WEB-INF/jsp/books/error-page.jsp"/>
+	</definition>
+	
+	<!--###################################################################################-->
+
+	<definition name="getUsers" extends="rootPage">
+		<put-attribute name="body" value="/WEB-INF/jsp/users/users.jsp"/>
+	</definition>
+
+	<definition name="addUser" extends="rootPage">
+		<put-attribute name="body" value="/WEB-INF/jsp/users/add-user-form.jsp"/>
+	</definition>
+
 </tiles-definitions>

@@ -2,6 +2,15 @@ group 'ml.ledv'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'war'
+
+war{
+    baseName = 'library'
+
+    manifest {
+        attributes 'Main-Class': 'ml.ledv.spring.boot.apache.tiles.Main'
+    }
+}
 
 sourceCompatibility = 1.8
 
@@ -12,6 +21,9 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.0.M7'
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.0.M7'
@@ -27,4 +39,18 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper
     compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.2'
+
+    // https://mvnrepository.com/artifact/org.webjars/bootstrap
+    compile group: 'org.webjars', name: 'bootstrap', version: '3.3.7'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+
+    // https://mvnrepository.com/artifact/org.webjars/jquery
+    compile group: 'org.webjars', name: 'jquery', version: '3.2.1'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.3'
+
+
 }

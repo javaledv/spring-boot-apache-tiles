@@ -1,0 +1,41 @@
+.search {
+    position: relative;
+    left: 63%;
+}
+
+.search-2 {
+    position: relative;
+    left: 70%;
+}
+
+.search-3 {
+    position: relative;
+    left: 77.5%;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    margin-left: 20%;
+    margin-right: 20%;
+    flex: 1 0 auto;
+}
+
+.footer {
+    flex: 0 0 auto;
+    padding: 0;
+    border: 0;
+    height: 50px;
+    background-color: #0f0f15;
+}
+
+.footer-text {
+    text-align: center;
+    color: #afb4ba;
+}
+
+
